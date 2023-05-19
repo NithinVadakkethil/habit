@@ -10,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final bool isAuthenticated = true; // Replace with your authentication logic
+  final bool isAuthenticated = false; // Replace with your authentication logic
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:client/services/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController usernameController = TextEditingController();
@@ -34,10 +36,15 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 String username = usernameController.text;
                 String password = passwordController.text;
-                // Perform login authentication logic here
-                // You can use the entered username and password for authentication
-                // If the login is successful, navigate to the home screen
-                Navigator.pushReplacementNamed(context, '/PrivateRoute');
+                AuthProvider authProvider =
+                    Provider.of<AuthProvider>(context, listen: false);
+                authProvider.login(username, password).then((_) {
+                  // If the login is successful, navigate to the home screen
+                  Navigator.pushReplacementNamed(context, '/PrivateRoute');
+                }).catchError((error) {
+                  // Handle login error here (e.g., display an error message)
+                  print(error);
+                });
               },
               child: Text('Login'),
             ),
